@@ -1,295 +1,252 @@
-# Ethara Website Assignment
+# Team Task Manager (Ertha1 - Assignment)
 
 <div align="center">
-  <img src="https://via.placeholder.com/150" alt="Ethara Logo" width="150" height="150">
-  <h3>Next-Generation Event & Booking Platform</h3>
-  <p>A comprehensive full-stack solution built to handle events, ticketing, and user management.</p>
+  <h3>A premium, full-stack web application for project and task management with role-based access control.</h3>
+  <p>Streamline your workflow, manage team collaboration, and track project progress in real-time.</p>
 </div>
 
 ---
 
-## 📖 Table of Contents
+## 📑 Table of Contents
 1. [Overview](#-overview)
 2. [Key Features](#-key-features)
-3. [Architecture](#-architecture)
-4. [Tech Stack](#-tech-stack)
-5. [Folder Structure](#-folder-structure)
-6. [Prerequisites](#-prerequisites)
-7. [Installation & Setup](#-installation--setup)
-8. [Environment Variables](#-environment-variables)
-9. [Available Scripts](#-available-scripts)
-10. [API Documentation](#-api-documentation)
-11. [Testing](#-testing)
-12. [Deployment](#-deployment)
-13. [Contributing](#-contributing)
-14. [Troubleshooting](#-troubleshooting)
-15. [License](#-license)
+3. [Architecture & Tech Stack](#-architecture--tech-stack)
+4. [Folder Structure](#-folder-structure)
+5. [Prerequisites](#-prerequisites)
+6. [Setup Instructions](#-setup-instructions)
+7. [Demo Credentials](#-demo-credentials)
+8. [API Documentation](#-api-documentation)
+9. [Database Schema](#-database-schema)
+10. [Deployment (Railway)](#-deployment-railway)
+11. [Contributing](#-contributing)
+12. [License](#-license)
 
 ---
 
 ## 🌟 Overview
-The **Ethara Website Assignment** is a robust, scalable, and responsive web application designed for seamless event management and ticketing. It offers a rich user interface crafted for optimal user experience, backed by a high-performance RESTful API that handles complex business logic, user authentication, and secure transactions.
-
-Whether you're an admin managing events or a user purchasing tickets, this application provides all the tools you need in a modern, secure environment.
+Team Task Manager is an intuitive and robust application designed to help teams coordinate efficiently. 
+With strict Role-Based Access Control (RBAC), admins can oversee projects and assign tasks, while team members can focus on execution. 
+The application provides real-time dashboard analytics, seamless authentication, and a highly responsive user interface.
 
 ---
 
 ## ✨ Key Features
 
-### 👤 User Features
-- **Secure Authentication:** Registration, login, and password recovery using JWT-based authentication.
-- **Dynamic Dashboard:** Personalized user dashboard to track upcoming events and past bookings.
-- **Real-Time Booking:** Instant ticket generation with QR code integration.
-- **Responsive Design:** A mobile-first approach ensuring the UI looks flawless on desktops, tablets, and smartphones.
-- **Dark/Light Mode:** Integrated theme switching for accessibility.
+### 🔐 Authentication & Security
+- **Secure Authentication**: Robust signup and login using JWT (JSON Web Tokens).
+- **Data Protection**: Passwords are securely hashed using bcrypt before being stored in the database.
+- **Input Validation**: All incoming API requests are validated using Zod to prevent malicious data entry.
 
-### 🛡️ Admin Features
-- **Role-Based Access Control (RBAC):** Strict permissions distinguishing between standard users, event organizers, and super admins.
-- **Event Management:** Create, edit, publish, and delete events. Upload promotional banners via Cloudinary.
-- **Analytics:** Visual charts mapping ticket sales and user demographics.
-- **User Management:** Ability to ban, suspend, or elevate user privileges.
+### 🛡️ Role-Based Access Control
+- **Admin Role**: 
+  - Complete oversight over the platform.
+  - Create, edit, and archive projects.
+  - Assign specific tasks to team members.
+  - Manage team directory and user roles.
+- **Member Role**:
+  - View individually assigned projects and tasks.
+  - Update task progress and status (e.g., To-Do, In Progress, Completed).
+
+### 📊 Project & Task Management
+- **Project Workspaces**: Group related tasks under specific projects for better organization.
+- **Granular Task Control**: Set task priorities (Low, Medium, High), assign due dates, and filter dynamically.
+- **Status Tracking**: Keep the whole team updated with real-time status updates on deliverables.
+
+### 📈 Real-Time Dashboard
+- **Analytics**: Get instant statistics on active projects, completed tasks, and pending deliverables.
+- **Overdue Tracking**: Automatically flags overdue items to ensure deadlines are met.
+- **Premium UI/UX**: Built with a clean, modern aesthetic utilizing Tailwind CSS and smooth animations powered by Framer Motion.
 
 ---
 
-## 🏛️ Architecture
-This project strictly follows the **Client-Server Architecture**.
-- **Frontend (Client):** A Single Page Application (SPA) providing an interactive user interface, state management, and client-side routing.
-- **Backend (Server):** A stateless REST API handling requests, business logic, validation, and database operations.
-- **Database:** A NoSQL approach ensuring high flexibility and horizontal scalability for event data.
+## 🛠️ Architecture & Tech Stack
 
----
+This project uses the MERN stack (MongoDB, Express, React, Node) with modern enhancements.
 
-## 🛠️ Tech Stack
+### Frontend (Client)
+- **Framework**: React (Bootstrapped with Vite for instant server start and lightning-fast HMR)
+- **Styling**: Tailwind CSS for utility-first responsive design.
+- **Animations**: Framer Motion for premium, fluid UI transitions.
+- **Routing**: React Router DOM.
+- **HTTP Client**: Axios for seamless API communication.
+- **Icons**: Lucide Icons for crisp, scalable vector graphics.
 
-### Frontend
-- **Framework:** React.js (Vite)
-- **State Management:** Redux Toolkit / React Context
-- **Styling:** Tailwind CSS / Styled Components
-- **Routing:** React Router DOM
-- **Data Fetching:** Axios / React Query
-
-### Backend
-- **Runtime:** Node.js
-- **Framework:** Express.js
-- **Database:** MongoDB (via Mongoose ODM)
-- **Authentication:** JSON Web Tokens (JWT) & bcrypt.js
-- **File Storage:** AWS S3 / Cloudinary (for images)
+### Backend (Server)
+- **Runtime**: Node.js
+- **Framework**: Express.js
+- **Database**: MongoDB with Mongoose ODM for structured data modeling.
+- **Security**: JWT for stateless session management.
+- **Validation**: Zod for strict type and schema validation.
 
 ---
 
 ## 📂 Folder Structure
 
-This repository is structured as a **Monorepo**, cleanly separating the client-side and server-side codebases.
-
 ```text
-etharaWebsit-main/
-├── frontend/                  # React Frontend Application
-│   ├── public/                # Static assets (favicons, images)
+root/
+├── client/                     # React Frontend
+│   ├── public/                 # Static assets
 │   ├── src/
-│   │   ├── components/        # Reusable UI components (Buttons, Modals)
-│   │   ├── pages/             # Page components (Home, Login, Dashboard)
-│   │   ├── services/          # API integration and Axios instances
-│   │   ├── styles/            # Global CSS / Tailwind configurations
-│   │   ├── utils/             # Helper functions and constants
-│   │   ├── App.js             # Root component and Routes
-│   │   └── index.js           # Entry point
-│   └── package.json           # Frontend dependencies
+│   │   ├── components/         # Reusable UI & Layout (Buttons, Cards, Navbar)
+│   │   ├── pages/              # View components (Dashboard, Login, Projects)
+│   │   ├── context/            # Global Auth state management
+│   │   ├── services/           # Axios interceptors and API communication
+│   │   ├── utils/              # Helper functions (date formatting, etc.)
+│   │   ├── App.jsx             # Main application router
+│   │   └── main.jsx            # React entry point
+│   ├── package.json
+│   └── vite.config.js
 │
-├── backend/                   # Node.js/Express Backend API
+├── server/                     # Express Backend
 │   ├── src/
-│   │   ├── config/            # Database and environment configurations
-│   │   ├── controllers/       # Route handlers and business logic
-│   │   ├── middleware/        # Custom middlewares (Auth, Error Handling)
-│   │   ├── models/            # Mongoose schemas and database models
-│   │   ├── routes/            # Express route definitions
-│   │   ├── utils/             # Utility classes (AppError, logger)
-│   │   └── server.js          # Main application entry point
-│   └── package.json           # Backend dependencies
+│   │   ├── config/             # DB connection and env variables
+│   │   ├── models/             # Mongoose schemas (User, Project, Task)
+│   │   ├── controllers/        # Business logic for endpoints
+│   │   ├── routes/             # API route definitions
+│   │   ├── middleware/         # Auth verification & Error handling
+│   │   ├── validations/        # Zod validation schemas
+│   │   └── index.js            # Server entry point
+│   └── package.json
 │
-└── README.md                  # Project documentation (You are here)
+└── README.md                   # Project documentation
 ```
 
 ---
 
 ## 📋 Prerequisites
-Before you begin, ensure you have the following installed on your local machine:
-- [Node.js](https://nodejs.org/en/) (v16.x or higher)
-- [npm](https://www.npmjs.com/) (v8.x or higher) or [Yarn](https://yarnpkg.com/)
-- [MongoDB](https://www.mongodb.com/) (Local instance or MongoDB Atlas cluster)
-- [Git](https://git-scm.com/)
+- **Node.js** (v16.0.0 or higher)
+- **npm** or **yarn**
+- **MongoDB** (Local instance or MongoDB Atlas URL)
 
 ---
 
-## 🚀 Installation & Setup
+## 🚀 Setup Instructions
 
-Follow these steps to get your development environment up and running.
-
-### 1. Clone the Repository
+### 1. Backend Setup
+Navigate to the server directory and install dependencies:
 ```bash
-git clone https://github.com/aryans55/assignment.git
-cd etharaWebsit-main
-```
-
-### 2. Setup the Backend
-Open a new terminal window and navigate to the backend directory:
-```bash
-cd backend
+cd server
 npm install
 ```
-Configure your environment variables (see next section), then start the server:
+
+Create a `.env` file in the `server` directory (you can copy `.env.example` if available) and add the following variables:
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_super_secret_jwt_key
+CLIENT_URL=http://localhost:5173
+```
+
+Seed the database with initial demo data (users, projects):
+```bash
+npm run seed
+```
+
+Start the backend development server:
 ```bash
 npm run dev
 ```
-The backend server should now be running on `http://localhost:5000`.
+*The server will typically run on http://localhost:5000.*
 
-### 3. Setup the Frontend
-Open a new terminal window and navigate to the frontend directory:
+### 2. Frontend Setup
+Open a new terminal, navigate to the client directory, and install dependencies:
 ```bash
-cd frontend
+cd client
 npm install
 ```
-Start the React development server:
+
+Start the Vite development server:
 ```bash
-npm start
+npm run dev
 ```
-The frontend application should now be running on `http://localhost:3000`.
+*The frontend will be available at http://localhost:5173.*
 
 ---
 
-## 🔐 Environment Variables
+## 🔑 Demo Credentials
 
-For the application to function correctly, you must set up the necessary environment variables. 
-Create a `.env` file in **both** the `frontend` and `backend` directories.
+You can use the following credentials to test the application after running the seed script:
 
-### Backend `.env`
-```env
-PORT=5000
-NODE_ENV=development
-MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/ethara?retryWrites=true&w=majority
-JWT_SECRET=your_super_secret_jwt_key_here
-JWT_EXPIRES_IN=30d
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
-```
-
-### Frontend `.env`
-```env
-REACT_APP_API_URL=http://localhost:5000/api/v1
-REACT_APP_ENVIRONMENT=development
-```
+- **Admin Account**: 
+  - Email: `admin@test.com` 
+  - Password: `Admin@123`
+- **Member Account**: 
+  - Email: `member@test.com` 
+  - Password: `Member@123`
 
 ---
 
-## 📜 Available Scripts
+## 🔌 API Endpoints Summary
 
-### Backend Scripts (`/backend`)
-- `npm start`: Starts the application in production mode.
-- `npm run dev`: Starts the application in development mode using Nodemon (auto-restarts on file changes).
-- `npm run seed`: Populates the database with sample dummy data for testing.
-- `npm run lint`: Runs ESLint to check for code formatting issues.
+Below is a quick reference for the primary REST API endpoints available in the backend.
 
-### Frontend Scripts (`/frontend`)
-- `npm start`: Runs the app in development mode.
-- `npm run build`: Builds the app for production to the `build` folder.
-- `npm test`: Launches the test runner in interactive watch mode.
-- `npm run eject`: Ejects the Create React App configuration for custom tweaking.
-
----
-
-## 🔌 API Documentation
-
-The backend exposes a comprehensive RESTful API. Below are some of the primary endpoints.
-
-### Authentication Endpoints
+### Authentication (`/api/auth`)
 | Method | Endpoint | Description | Access |
 |---|---|---|---|
-| POST | `/api/v1/auth/register` | Register a new user | Public |
-| POST | `/api/v1/auth/login` | Authenticate user & get token | Public |
-| GET | `/api/v1/auth/me` | Get current logged-in user | Private |
-| POST | `/api/v1/auth/forgotpassword`| Send password reset email | Public |
+| POST | `/signup` | Register a new user | Public |
+| POST | `/login` | Authenticate user & get token | Public |
+| GET | `/me` | Get current authenticated user profile | Private |
 
-### Event Endpoints
+### Projects (`/api/projects`)
 | Method | Endpoint | Description | Access |
 |---|---|---|---|
-| GET | `/api/v1/events` | Get all events (with filtering) | Public |
-| GET | `/api/v1/events/:id` | Get single event details | Public |
-| POST | `/api/v1/events` | Create a new event | Admin |
-| PUT | `/api/v1/events/:id` | Update an existing event | Admin |
-| DELETE| `/api/v1/events/:id` | Delete an event | Admin |
+| GET | `/` | Fetch all projects | Private (Admin/Member) |
+| POST | `/` | Create a new project | Admin |
+| PUT | `/:id` | Update project details | Admin |
 
-### User Endpoints
+### Tasks (`/api/tasks`)
 | Method | Endpoint | Description | Access |
 |---|---|---|---|
-| GET | `/api/v1/users` | Get all users | Admin |
-| GET | `/api/v1/users/:id` | Get specific user | Admin |
-| PUT | `/api/v1/users/:id` | Update user roles | Admin |
-| DELETE| `/api/v1/users/:id` | Remove a user account | Admin |
+| GET | `/` | Fetch all tasks | Private |
+| POST | `/` | Create and assign a new task | Admin |
+| PATCH | `/:id/status`| Update the status of a specific task | Private |
 
-*(Detailed API documentation, including request payloads and response schemas, will be provided via Swagger/Postman collection in the future).*
+### Dashboard (`/api/dashboard`)
+| Method | Endpoint | Description | Access |
+|---|---|---|---|
+| GET | `/stats` | Fetch real-time dashboard statistics | Private |
 
 ---
 
-## 🧪 Testing
+## 🗄️ Database Schema (Overview)
 
-We value code reliability. This project uses the following testing frameworks:
-- **Backend:** Jest & Supertest (Integration & Unit testing)
-- **Frontend:** React Testing Library & Jest (Component testing)
-
-To run the test suites:
-```bash
-# In the backend directory
-npm test
-
-# In the frontend directory
-npm test
-```
+- **User Model**: Stores `name`, `email`, `password` (hashed), and `role` (Admin/Member).
+- **Project Model**: Stores `title`, `description`, `deadline`, and `createdBy` (Admin reference).
+- **Task Model**: Stores `title`, `description`, `status` (To-Do, In Progress, Done), `priority` (Low, Medium, High), `project` (Ref), and `assignee` (Ref).
 
 ---
 
-## ☁️ Deployment
+## ☁️ Deployment (Railway)
 
-### Backend Deployment (Render / Heroku)
-1. Connect your GitHub repository to Render.
-2. Set the build command to `npm install`.
-3. Set the start command to `npm start`.
-4. Inject all environment variables in the Render dashboard.
+This application is fully prepared and optimized for deployment on **Railway**.
 
-### Frontend Deployment (Vercel / Netlify)
-1. Import the repository into Vercel.
-2. Set the root directory to `frontend/`.
-3. Vercel will automatically detect Create React App / Vite and configure build settings.
-4. Add the `REACT_APP_API_URL` pointing to your deployed backend.
+1. Connect your GitHub repository to your Railway account.
+2. In the Railway dashboard, create two services (or one monorepo setup depending on your preference):
+   - A **Node.js** service for the server.
+   - A **Static/Vite** service for the client.
+3. Add the required Environment Variables in the Railway dashboard for the backend service:
+   - `MONGO_URI`
+   - `JWT_SECRET`
+   - `CLIENT_URL` (Set this to your newly generated frontend Railway URL)
+4. Ensure the root contains both `client` and `server` folders, or deploy them as separate repositories.
+5. Deploy both services. Railway will automatically install dependencies and run the build scripts.
 
 ---
 
 ## 🤝 Contributing
-
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-Please ensure your code follows the established formatting rules. We use Prettier and ESLint to maintain code quality.
-
----
-
-## 🐛 Troubleshooting
-
-- **MongoDB Connection Error:** Ensure your IP address is whitelisted in MongoDB Atlas. Check your `MONGO_URI` in the `.env` file.
-- **CORS Issues:** If the frontend cannot communicate with the backend, verify that your backend `app.use(cors())` configuration allows the frontend origin.
-- **Node Sass/Bcrypt Bindings:** If you encounter native compilation errors, try deleting `node_modules` and `package-lock.json`, then run `npm cache clean --force` followed by `npm install`.
+Contributions are always welcome. To contribute:
+1. Fork the repository.
+2. Create your feature branch (`git checkout -b feature/NewFeature`).
+3. Commit your changes (`git commit -m 'Add NewFeature'`).
+4. Push to the branch (`git push origin feature/NewFeature`).
+5. Open a Pull Request.
 
 ---
 
 ## 📄 License
-
-Distributed under the **MIT License**. See `LICENSE` for more information.
+This project is licensed under the MIT License.
 
 ---
-<div align="center">
-  <p>Made with ❤️ for the Ethara Assignment.</p>
-</div>
+# ertha1
+# assignment-
+
